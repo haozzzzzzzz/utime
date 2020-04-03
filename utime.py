@@ -159,6 +159,10 @@ def month_start_offset(dt, offset=0):
     return month_day + relativedelta(months=0)
 
 
+def month_start_offset_unix(dt, offset=0):
+    return datetime_to_unix(month_start_offset(dt, offset))
+
+
 if __name__ == "__main__":
     n = now()
     print(n)
