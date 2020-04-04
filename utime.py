@@ -141,6 +141,14 @@ def week_start_offset_unix(dt, offset=0):
     return datetime_to_unix(week_day)
 
 
+def week_cur_start():
+    """
+    current weeek start datetime
+    :return:
+    """
+    return week_start(today())
+
+
 def month_start(dt):
     return datetime.datetime(
         year=dt.year,
@@ -161,6 +169,14 @@ def month_start_offset(dt, offset=0):
 
 def month_start_offset_unix(dt, offset=0):
     return datetime_to_unix(month_start_offset(dt, offset))
+
+
+def month_cur_start():
+    """
+    current month start datetime
+    :return:
+    """
+    return month_start(today())
 
 
 if __name__ == "__main__":
