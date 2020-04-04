@@ -179,6 +179,26 @@ def month_cur_start():
     return month_start(today())
 
 
+def session_start(dt):
+    """
+    季开始日期
+    :param dt: Datetime
+    :return:
+    """
+    session = int((dt.month - 1) / 3)
+    month = session * 3 + 1
+    return datetime.datetime(
+        year=dt.year,
+        month=month,
+        day=1,
+        tzinfo=dt.tzinfo,
+    )
+
+
+def session_start_unix(dt):
+    return datetime_to_unix(session_start(dt))
+
+
 if __name__ == "__main__":
     n = now()
     print(n)
@@ -200,5 +220,6 @@ if __name__ == "__main__":
     ms = month_start(dt)
     print(ms)
 
-    # print("20200331150000000"[:-3])
-    # print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
+    print("20200331150000000"[:-3])
+    print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
+    print(session_start(str_to_datetime("2020-11-29 18:30:00")))
