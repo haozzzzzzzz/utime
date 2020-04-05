@@ -180,7 +180,7 @@ def month_start_unix(dt):
 
 def month_start_offset(dt, offset=0):
     month_day = month_start(dt)
-    return month_day + relativedelta(months=0)
+    return month_day + relativedelta(months=offset)
 
 
 def month_start_offset_unix(dt, offset=0):
@@ -215,27 +215,50 @@ def season_start_unix(dt):
     return datetime_to_unix(season_start(dt))
 
 
+def season_num(dt):
+    return int((dt.month - 1) / 3) + 1
+
+
+def season_cur():
+    return season_start(today())
+
+
+def season_cur_unix():
+    return datetime_to_unix(season_cur())
+
+
+def season_offset(dt, offset=0):
+    cur_season = season_start(dt)
+    offsets_month = 3 * offset
+    offset_season = cur_season + relativedelta(months=offsets_month)
+    return offset_season
+
+
 if __name__ == "__main__":
-    n = now()
-    print(n)
-    print(day_start(n))
-    print(day_start_unix(n))
-    print(today())
-    print(today_unix())
-    print(day_start_offset(n, 1))
-    print(datetime_to_day_str(n))
-    print(datetime_to_str(n))
-    print(str_to_datetime("2020-03-29 14:14:54"))
-    dt = str_to_datetime("2020-02-29 14:14:54")
+    # n = now()
+    # print(n)
+    # print(day_start(n))
+    # print(day_start_unix(n))
+    # print(today())
+    # print(today_unix())
+    # print(day_start_offset(n, 1))
+    # print(datetime_to_day_str(n))
+    # print(datetime_to_str(n))
+    # print(str_to_datetime("2020-03-29 14:14:54"))
+    # dt = str_to_datetime("2020-02-29 14:14:54")
+    # print(dt)
+    #
+    # print(week_start(dt))
+    # week_offset = week_start_offset(dt, -1)
+    # print(week_offset)
+    #
+    # ms = month_start(dt)
+    # print(ms)
+    #
+    # print("20200331150000000"[:-3])
+    # print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
+    # print(season_start(str_to_datetime("2020-11-29 18:30:00")))
+
+    dt = day_str_to_daytime("2020-01-02")
     print(dt)
-
-    print(week_start(dt))
-    week_offset = week_start_offset(dt, -1)
-    print(week_offset)
-
-    ms = month_start(dt)
-    print(ms)
-
-    print("20200331150000000"[:-3])
-    print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
-    print(season_start(str_to_datetime("2020-11-29 18:30:00")))
+    print(season_offset(dt, -1))
