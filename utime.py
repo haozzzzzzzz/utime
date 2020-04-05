@@ -80,6 +80,22 @@ def today_unix():
     return datetime_to_unix(today())
 
 
+def tomorrow():
+    return day_start_offset(today(), 1)
+
+
+def tomorrow_unix():
+    return datetime_to_unix(tomorrow())
+
+
+def yesterday():
+    return day_start_offset(today(), -1)
+
+
+def yesterday_unix():
+    return datetime_to_unix(yesterday())
+
+
 def day_start_offset(dt, offset=0):
     ds = day_start(dt)
     ds += datetime.timedelta(days=offset)
@@ -179,7 +195,7 @@ def month_cur_start():
     return month_start(today())
 
 
-def session_start(dt):
+def season_start(dt):
     """
     季开始日期
     :param dt: Datetime
@@ -195,8 +211,8 @@ def session_start(dt):
     )
 
 
-def session_start_unix(dt):
-    return datetime_to_unix(session_start(dt))
+def season_start_unix(dt):
+    return datetime_to_unix(season_start(dt))
 
 
 if __name__ == "__main__":
@@ -222,4 +238,4 @@ if __name__ == "__main__":
 
     print("20200331150000000"[:-3])
     print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
-    print(session_start(str_to_datetime("2020-11-29 18:30:00")))
+    print(season_start(str_to_datetime("2020-11-29 18:30:00")))
