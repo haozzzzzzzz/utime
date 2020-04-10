@@ -40,7 +40,7 @@ def now():
 
 
 def datetime_to_unix(dt):
-    return int(time.mktime(dt.timetuple()))
+    return int(dt.timestamp())
 
 
 def unix_to_datetime(unix_time):
