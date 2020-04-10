@@ -116,18 +116,40 @@ def str_to_datetime(s):
     :param s:
     :return:
     """
-    t = time.mktime(time.strptime(s, "%Y-%m-%d %H:%M:%S"))
-    return datetime.datetime.fromtimestamp(t, tz=Timezone)
+    dt = datetime.datetime.strptime(s, "%Y-%m-%d %H:%M:%S")
+    return datetime.datetime(
+        year=dt.year,
+        month=dt.month,
+        day=dt.day,
+        hour=dt.hour,
+        minute=dt.minute,
+        second=dt.second,
+        tzinfo=Timezone,
+    )
 
 
 def day_str_to_daytime(s):
-    t = time.mktime(time.strptime(s, "%Y-%m-%d"))
-    return datetime.datetime.fromtimestamp(t, tz=Timezone)
+    dt = datetime.datetime.strptime(s, "%Y-%m-%d")
+    return datetime.datetime(
+        year=dt.year,
+        month=dt.month,
+        day=dt.day,
+        tzinfo=Timezone,
+    )
 
 
 def format_str_to_datetime(str_time, fmt):
-    t = time.mktime(time.strptime(str_time, fmt))
-    return datetime.datetime.fromtimestamp(t, tz=Timezone)
+    dt = datetime.datetime.strptime(str_time, fmt)
+    return datetime.datetime(
+        year=dt.year,
+        month=dt.month,
+        day=dt.day,
+        hour=dt.hour,
+        minute=dt.minute,
+        second=dt.second,
+        microsecond=dt.microsecond,
+        tzinfo=Timezone,
+    )
 
 
 def week_start(dt):
@@ -259,6 +281,9 @@ if __name__ == "__main__":
     # print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
     # print(season_start(str_to_datetime("2020-11-29 18:30:00")))
 
+    use_tz_india()
     dt = day_str_to_daytime("2020-01-02")
     print(dt)
+    print(str_to_datetime("2020-01-02 18:30:00"))
+    print(format_str_to_datetime("2020-01-02 18:30:00", "%Y-%m-%d %H:%M:%S"))
     print(season_offset(dt, -1))
