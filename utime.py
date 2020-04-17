@@ -8,8 +8,8 @@ from dateutil.tz import tzoffset
 
 __author__ = "Hao Luo"
 
-TzShanghai = pytz.timezone('Asia/Shanghai')
-Timezone = TzShanghai
+TzChina = tzoffset("CST", +28800) # 北京时间
+Timezone = TzChina
 
 TzIndia = tzoffset("IST", +19800) # india timezone
 TzIndonesia = tzoffset("WIB", +25200) # indonesia timezone
@@ -25,9 +25,9 @@ def use_tz_indonesia():
     Timezone = TzIndonesia
 
 
-def use_tz_shanghai():
+def use_tz_china():
     global Timezone
-    Timezone = TzShanghai
+    Timezone = TzChina
 
 
 def use_tz(tz):
@@ -130,12 +130,14 @@ def str_to_datetime(s):
 
 def day_str_to_daytime(s):
     dt = datetime.datetime.strptime(s, "%Y-%m-%d")
-    return datetime.datetime(
+    new_dt = datetime.datetime(
         year=dt.year,
         month=dt.month,
         day=dt.day,
         tzinfo=Timezone,
     )
+    print(dt, new_dt)
+    return new_dt
 
 
 def format_str_to_datetime(str_time, fmt):
@@ -281,9 +283,11 @@ if __name__ == "__main__":
     # print(format_str_to_datetime("20200331150000000"[:-3], "%Y%m%d%H%M%S"))
     # print(season_start(str_to_datetime("2020-11-29 18:30:00")))
 
-    use_tz_india()
-    dt = day_str_to_daytime("2020-01-02")
-    print(dt)
-    print(str_to_datetime("2020-01-02 18:30:00"))
-    print(format_str_to_datetime("2020-01-02 18:30:00", "%Y-%m-%d %H:%M:%S"))
-    print(season_offset(dt, -1))
+    # use_tz_india()
+    # dt = day_str_to_daytime("2020-01-02")
+    # print(dt)
+    # print(str_to_datetime("2020-01-02 18:30:00"))
+    # print(format_str_to_datetime("2020-01-02 18:30:00", "%Y-%m-%d %H:%M:%S"))
+    # print(season_offset(dt, -1))
+
+    print(day_str_to_daytime("2020-04-17"))
