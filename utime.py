@@ -136,7 +136,6 @@ def day_str_to_daytime(s):
         day=dt.day,
         tzinfo=Timezone,
     )
-    print(dt, new_dt)
     return new_dt
 
 
