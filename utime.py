@@ -34,6 +34,9 @@ def use_tz(tz):
     global Timezone
     Timezone = tz
 
+def use_tzoffset(tz_name, utc_offset):
+    global Timezone
+    Timezone = tzoffset(tz_name, utc_offset)
 
 def now():
     return datetime.datetime.now(Timezone)
