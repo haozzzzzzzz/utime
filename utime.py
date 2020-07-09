@@ -130,6 +130,8 @@ def str_to_datetime(s):
         tzinfo=Timezone,
     )
 
+def str_to_unix(s):
+    return datetime_to_unix(str_to_datetime(s))
 
 def day_str_to_daytime(s):
     dt = datetime.datetime.strptime(s, "%Y-%m-%d")
@@ -140,6 +142,9 @@ def day_str_to_daytime(s):
         tzinfo=Timezone,
     )
     return new_dt
+
+def day_str_to_unix(s):
+    return datetime_to_unix(day_str_to_daytime(s))
 
 
 def format_str_to_datetime(str_time, fmt):
