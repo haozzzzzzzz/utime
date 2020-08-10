@@ -12,8 +12,13 @@ TzChina = tzoffset("CST", +28800) # 北京时间
 Timezone = TzChina
 
 TzIndia = tzoffset("IST", +19800) # india timezone
-TzIndonesia = tzoffset("WIB", +25200) # indonesia timezone
+TzIndonesia = tzoffset("ICT", +25200) # indonesia timezone. UTC+7
+TzVietnam = tzoffset("ICT", +25200) # vienam timezone. using indonesia timezone UTC+7
 
+
+def use_tz_utc():
+    global Timezone
+    Timezone = pytz.UTC
 
 def use_tz_india():
     global Timezone
@@ -23,6 +28,10 @@ def use_tz_india():
 def use_tz_indonesia():
     global Timezone
     Timezone = TzIndonesia
+
+def use_tz_vietnam():
+    global Timezone
+    Timezone = TzVietnam
 
 
 def use_tz_china():
@@ -71,9 +80,17 @@ def day_start(dt):
     )
 
 
-def day_start_unix(dt):
+def day_start_to_unix(dt):
+    """
+    Get day start unix timestamp from datetime
+    """
     return datetime_to_unix(day_start(dt))
 
+def unix_to_day_start(unix_time):
+    """
+    Get day start datetime from unix timestamp
+    """
+    return day_start(unix_to_datetime(unix_time))
 
 def today():
     return day_start(now())
@@ -104,6 +121,14 @@ def day_start_offset(dt, offset=0):
     ds += datetime.timedelta(days=offset)
     return ds
 
+def day_start_offset_unix(dt_unix, offset=0):
+    """
+    Get offset day start unix timestamp
+    """
+    dt = unix_to_day_start(dt_unix)
+    ds_offset = day_start_offset(dt, offset)
+    ds_unix = datetime_to_unix(ds_offset)
+    return ds_unix
 
 def datetime_to_day_str(dt):
     return dt.strftime("%Y-%m-%d")
@@ -112,6 +137,11 @@ def datetime_to_day_str(dt):
 def datetime_to_str(dt):
     return dt.strftime("%Y-%m-%d %H:%M:%S")
 
+def unix_to_str(unix_time):
+    """
+    unix timestamp in seconds to string datetime format
+    """
+    return datetime_to_str(unix_to_datetime(unix_time))
 
 def str_to_datetime(s):
     """
@@ -297,4 +327,7 @@ if __name__ == "__main__":
     # print(format_str_to_datetime("2020-01-02 18:30:00", "%Y-%m-%d %H:%M:%S"))
     # print(season_offset(dt, -1))
 
-    print(day_str_to_daytime("2020-04-17"))
+    # print(day_str_to_daytime("2020-04-17"))
+    
+
+    print(unix_to_str(today_unix()))
