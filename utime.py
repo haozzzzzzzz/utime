@@ -86,11 +86,22 @@ def day_start_to_unix(dt):
     """
     return datetime_to_unix(day_start(dt))
 
+
 def unix_to_day_start(unix_time):
     """
     Get day start datetime from unix timestamp
     """
     return day_start(unix_to_datetime(unix_time))
+
+
+def unix_to_day_start_str(unix_time):
+    """
+    Get str day start time from unix timestamp
+    :param unix_time:
+    :return:
+    """
+    return datetime_to_day_str(unix_to_day_start(unix_time))
+
 
 def today():
     return day_start(now())
