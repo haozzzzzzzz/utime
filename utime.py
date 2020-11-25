@@ -5,6 +5,7 @@ import time
 import pytz
 from dateutil.relativedelta import relativedelta
 from dateutil.tz import tzoffset
+from dateutil import parser
 
 __author__ = "Hao Luo"
 
@@ -20,6 +21,7 @@ def use_tz_utc():
     global Timezone
     Timezone = pytz.UTC
 
+
 def use_tz_india():
     global Timezone
     Timezone = TzIndia
@@ -28,6 +30,7 @@ def use_tz_india():
 def use_tz_indonesia():
     global Timezone
     Timezone = TzIndonesia
+
 
 def use_tz_vietnam():
     global Timezone
@@ -43,9 +46,11 @@ def use_tz(tz):
     global Timezone
     Timezone = tz
 
+
 def use_tzoffset(tz_name, utc_offset):
     global Timezone
     Timezone = tzoffset(tz_name, utc_offset)
+
 
 def now():
     return datetime.datetime.now(Timezone)
@@ -71,7 +76,7 @@ def day_start(dt):
     """
     一天开始时间
     """
-    dt = dt.astimezone(tz=Timezone)
+    dt = dt.astimezone(tz=Timezone) # 时区转换
     return datetime.datetime(
         year=dt.year,
         month=dt.month,
@@ -132,6 +137,7 @@ def day_start_offset(dt, offset=0):
     ds += datetime.timedelta(days=offset)
     return ds
 
+
 def day_start_offset_unix(dt_unix, offset=0):
     """
     Get offset day start unix timestamp
@@ -141,6 +147,7 @@ def day_start_offset_unix(dt_unix, offset=0):
     ds_unix = datetime_to_unix(ds_offset)
     return ds_unix
 
+
 def datetime_to_day_str(dt):
     return dt.strftime("%Y-%m-%d")
 
@@ -148,11 +155,13 @@ def datetime_to_day_str(dt):
 def datetime_to_str(dt):
     return dt.strftime("%Y-%m-%d %H:%M:%S")
 
+
 def unix_to_str(unix_time):
     """
     unix timestamp in seconds to string datetime format
     """
     return datetime_to_str(unix_to_datetime(unix_time))
+
 
 def str_to_datetime(s):
     """
@@ -171,8 +180,10 @@ def str_to_datetime(s):
         tzinfo=Timezone,
     )
 
+
 def str_to_unix(s):
     return datetime_to_unix(str_to_datetime(s))
+
 
 def day_str_to_daytime(s):
     dt = datetime.datetime.strptime(s, "%Y-%m-%d")
@@ -184,8 +195,18 @@ def day_str_to_daytime(s):
     )
     return new_dt
 
+
 def day_str_to_unix(s):
     return datetime_to_unix(day_str_to_daytime(s))
+
+
+def common_parse(str_time):
+    '''
+    通用解析时间字符串
+    :param str_time:
+    :return:
+    '''
+    return parser.parse(str_time).astimezone(Timezone)
 
 
 def format_str_to_datetime(str_time, fmt):
@@ -340,5 +361,7 @@ if __name__ == "__main__":
 
     # print(day_str_to_daytime("2020-04-17"))
     
+    # print(unix_to_str(today_unix()))
 
-    print(unix_to_str(today_unix()))
+    use_tz_india()
+    print(common_parse("2020-11-24T10:00:10Z"))
