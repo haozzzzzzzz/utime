@@ -52,6 +52,10 @@ def use_tzoffset(tz_name, utc_offset):
     Timezone = tzoffset(tz_name, utc_offset)
 
 
+def convert_to_current_timezone(dt):
+    return dt.astimezone(Timezone)
+
+
 def now():
     return datetime.datetime.now(Timezone)
 
