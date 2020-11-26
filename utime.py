@@ -56,6 +56,10 @@ def convert_to_current_timezone(dt):
     return dt.astimezone(Timezone)
 
 
+def convert_to_utc(dt):
+    return dt.astimezone(pytz.UTC)
+
+
 def now():
     return datetime.datetime.now(Timezone)
 
@@ -211,6 +215,10 @@ def common_parse(str_time):
     :return:
     '''
     return parser.parse(str_time).astimezone(Timezone)
+
+
+def common_parse_unix(str_time):
+    return datetime_to_unix(parser.parse(str_time))
 
 
 def format_str_to_datetime(str_time, fmt):
