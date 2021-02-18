@@ -12,7 +12,7 @@ __author__ = "Hao Luo"
 TzChina = tzoffset("CST", +28800) # 北京时间
 Timezone = TzChina
 
-TzUtc = pytz.UTC
+TzUTC = pytz.UTC
 TzIndia = tzoffset("IST", +19800) # india timezone
 TzIndonesia = tzoffset("ICT", +25200) # indonesia timezone. UTC+7
 TzVietnam = tzoffset("ICT", +25200) # vienam timezone. using indonesia timezone UTC+7
