@@ -172,13 +172,17 @@ def unix_to_str(unix_time):
     return datetime_to_str(unix_to_datetime(unix_time))
 
 
+StrTimeFormatYmd = "%Y-%m-%d"  # 2021-02-18
+StrTimeFormatYmdHMS = "%Y-%m-%d %H:%M:%S"  # 2021-02-18 15:49:00
+
+
 def str_to_datetime(s):
     """
     %Y-%m-%d %H:%M:%S
     :param s:
     :return:
     """
-    dt = datetime.datetime.strptime(s, "%Y-%m-%d %H:%M:%S")
+    dt = datetime.datetime.strptime(s, StrTimeFormatYmdHMS)
     return datetime.datetime(
         year=dt.year,
         month=dt.month,
