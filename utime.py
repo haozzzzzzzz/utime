@@ -64,6 +64,18 @@ def convert_to_utc(dt):
 def now():
     return datetime.datetime.now(Timezone)
 
+def now_unix():
+    """
+    当前时间戳
+    """
+
+    return int(time.time())
+
+def now_str():
+    """
+    当前时间字符串
+    """
+    return datetime_to_str(now())
 
 def datetime_to_unix(dt):
     return int(dt.timestamp())
@@ -71,14 +83,6 @@ def datetime_to_unix(dt):
 
 def unix_to_datetime(unix_time):
     return datetime.datetime.fromtimestamp(unix_time, tz=Timezone)
-
-
-def now_unix():
-    """
-    当前时间戳
-    """
-
-    return int(time.time())
 
 
 def day_start(dt):
@@ -124,6 +128,9 @@ def today():
 def today_unix():
     return datetime_to_unix(today())
 
+def today_str():
+    return datetime_to_day_str(today())
+
 
 def tomorrow():
     return day_start_offset(today(), 1)
@@ -132,6 +139,9 @@ def tomorrow():
 def tomorrow_unix():
     return datetime_to_unix(tomorrow())
 
+def tomorrow_str():
+    return datetime_to_day_str(tomorrow())
+
 
 def yesterday():
     return day_start_offset(today(), -1)
@@ -139,6 +149,9 @@ def yesterday():
 
 def yesterday_unix():
     return datetime_to_unix(yesterday())
+
+def yesterday_str():
+    return datetime_to_day_str(yesterday())
 
 
 def day_start_offset(dt, offset=0):
